@@ -1,0 +1,31 @@
+title: Unicorn-SpecificVersion
+status: experimental
+description: Detects when a Stager generated with Unicorn tool is executed.
+references:
+author: Rik van Duijn, Leandro Velasco
+date: 20/07/2018
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 1
+        ParentImage:
+            - '*\powershell.EXE'
+        Image:
+            - '*\powershell.exe'
+        CommandLine:
+            - '-ec'
+    keyword:
+        ParentCommandLine: s"v        
+    keyword1 : 
+        ParentCommandLine: g"v
+    keyword2 : 
+        ParentCommandLine: value.toString
+    keyword3:
+        ParentCommandLine: sv        
+    keyword4 : 
+        ParentCommandLine: gv
+    condition: selection and (keyword or keyword3) and (keyword1 or keyword4) and keyword2
+level: high
+

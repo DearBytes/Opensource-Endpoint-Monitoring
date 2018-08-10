@@ -1,0 +1,39 @@
+title: WMI persistance
+status: experimental
+description: Detects the creation of a WmiConsumerEvent where the destination is a suspicious binary.
+references:  
+author: Rik van Duijn, Leandro Velasco
+date: 2018/07/23
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 20
+        EventType :
+            - 'WmiConsumerEvent'
+        Destination:
+            - '*\nslookup.exe'
+            - '*\certutil.exe'
+            - '*\bitsadmin.exe'
+            - '*\vssadmin.exe' # For Handling Shadow Copies
+            - '*\cmd.exe'
+            - '*\powershell.exe'
+            - '*\wscript.exe'
+            - '*\cscript.exe'
+            - '*\sh.exe'
+            - '*\bash.exe'
+            - '*\scrcons.exe'
+            - '*\sc.exe' 
+            - '*\schtasks.exe'  # see https://www.hybrid-analysis.com/sample/b409538c99f99b94a5035d9fa44a506b41be0feb23e89b7e4d272ba791aa6002?environmentId=100
+            - '*\regsvr32.exe'  # see https://twitter.com/subTee/status/899283365647458305
+            - '*\hh.exe'  # see https://www.hybrid-analysis.com/sample/6abc2b63f1865a847ff7f5a9d49bb944397b36f5503b9718d6f91f93d60f7cd7?environmentId=100
+            - '*\wmic.exe'  # see https://mgreen27.github.io/posts/2018/04/02/DownloadCradle.html
+            - '*\mshta.exe'  # see https://mgreen27.github.io/posts/2018/04/02/DownloadCradle.html
+            - '*\rundll32.exe'  # see https://mgreen27.github.io/posts/2018/04/02/DownloadCradle.html
+            - '*\msiexec.exe'  # see https://twitter.com/DissectMalware/status/984252467474026497
+            - '*\python.exe'
+            - '*\control.exe' # https://twitter.com/rikvduijn/status/853251879320662017
+    condition: selection
+level: high
+

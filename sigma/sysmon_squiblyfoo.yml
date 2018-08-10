@@ -1,0 +1,29 @@
+title: squiblyfoo
+status: experimental
+description: Detects when winrm.vbs is executed by cscript.exe and the argument "format" is passed.
+references:  https://posts.specterops.io/application-whitelisting-bypass-and-arbitrary-unsigned-code-execution-technique-in-winrm-vbs-c8c24fb40404
+author: Rik van Duijn, Leandro Velasco
+date: 2018/07/23
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 1
+        Image:
+            - 'cscript.exe'
+        CommandLine:
+            - 'winrm.vbs'
+    keyword:
+        CommandLine:
+            - '-format:pretty'
+            - '-format:"pretty"'
+            - '/format:pretty'
+            - '/format:"pretty"'
+            - '-format:text'
+            - '-format:"text"'
+            - '/format:text'
+            - '/format:"text"'  
+    condition: selection and keyword
+level: high
+

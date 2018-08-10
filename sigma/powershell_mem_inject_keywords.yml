@@ -1,0 +1,59 @@
+title: PowerShell memory injection Commandlets
+status: experimental
+description: Detects Commandlet names from well-known PowerShell exploitation frameworks
+references:
+    - https://attack.mitre.org/wiki/Technique/T1106
+author: Rik van Duijn, Leandro Velasco
+date: 2018/07/23
+logsource:
+    product: windows
+    service: powershell
+    description: 'It is recommanded to use the new "Script Block Logging" of PowerShell v5 https://adsecurity.org/?p=2277'
+detection:
+    selection:
+        EventID: 4104
+        ScriptBlockText:
+            - GetModuleHandle
+            - GetProcAddress
+            - VirtualAlloc
+            - VirtualAllocEx
+            - WriteProcessMemory
+            - WaitForSingleObject
+            - msvcrt.dll
+            - memcpy
+            - kernel32.dll
+            - memset
+            - LoadLibraryA
+            - LoadLibraryW
+            - VirtualFree
+            - VirtualFreeEx
+            - VirtualProtect
+            - GetModuleHandleA
+            - GetModuleHandleW
+            - CreateRemoteThread
+            - NtCreateThreadEx
+            - CreateThread
+            - DllImport
+            - CreateProcessA
+            - CreateProcessW
+            - CreateProcessAsUserA
+            - CreateProcessAsUserW
+            - CreateProcessInternalA
+            - CreateProcessInternalW
+            - CreateProcessWithLogonW
+            - CreateProcessWithTokenW
+            - LoadLibraryA
+            - LoadLibraryW
+            - LoadLibraryExA
+            - LoadLibraryExW
+            - LoadModule
+            - LoadPackagedLibrary
+            - WinExec
+            - ShellExecuteA
+            - ShellExecuteW
+            - ShellExecuteExA
+            - ShellExecuteExW
+    condition: selection
+falsepositives:
+    - Weird admin scripts
+level: high

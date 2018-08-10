@@ -1,0 +1,23 @@
+title: Mining malware
+status: experimental
+description: Detects XMRIG command line parameters
+author: Leandro Velasco, Rik van Duijn
+date: 2018/07/23
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 1
+        CommandLine:
+            - 'cryptonight' 
+            - 'stratum+' 
+            - '--donate-level' 
+            - '--max-cpu-usage' 
+    condition: selection
+fields:
+    - CommandLine
+falsepositives:
+    - unknown
+level: high
+

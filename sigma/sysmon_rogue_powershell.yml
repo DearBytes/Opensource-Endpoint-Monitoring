@@ -1,0 +1,22 @@
+title: Rogue-powershell
+status: experimental
+description: Detects when powershell's dlls are loaded from an image that is not powershell
+references:
+author: Rik van Duijn, Leandro Velasco
+date: 25/07/2018
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 7
+        ImageLoaded:
+            - System.Management.Automation.Dll
+            - System.Management.Automation.ni.Dll
+            - System.Reflection.Dll
+    selection1:
+        Image: 
+        - powershell.exe        
+    condition: selection and not selection1
+level: high
+

@@ -1,0 +1,25 @@
+title: Suspicious Process Creation by SYSTEM
+status: experimental
+description: Detects suspicious binaries called by the user SYSTEM
+references:
+author: Rik van Duijn, Leandro Velasco
+date: 2018/07/23
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    Selection1:
+      EventID: 1 
+      Image:
+          - '*\whoami.exe'
+          - '*\ipconfig.exe'
+          - '*\net1.exe'
+          - '*\net.exe'
+          - '*\nslookup.exe'
+          - '*\hostname.exe'
+      User: 
+          - 'NT AUTHORITY\SYSTEM'
+    condition: Selection1
+falsepositives:
+    - Penetration tests
+level: high

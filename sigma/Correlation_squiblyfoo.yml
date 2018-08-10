@@ -1,0 +1,17 @@
+title: Correlation-squiblyfoo
+status: experimental
+description: Detects when both alarms squiblyfoo and squiblyfoo-fileCreation have triggered within 1 hour on the same device.
+references:
+author: Rik van Duijn, Leandro Velasco
+date: 2018/07/23
+logsource:
+    product: ElastAlert
+    service: elastalert_status
+detection:
+    selection:
+        RuleName:
+            - 'squiblyfoo'
+            - 'squiblyfoo-fileCreation'
+    timeframe: 1h
+    condition: selection
+level: high

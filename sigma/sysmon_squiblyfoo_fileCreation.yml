@@ -1,0 +1,18 @@
+title: squiblyfoo-fileCreation
+status: experimental
+description: Detects when the file "WsmPty.xsl" or "WsmTxt.xsl" is created.
+references: https://posts.specterops.io/application-whitelisting-bypass-and-arbitrary-unsigned-code-execution-technique-in-winrm-vbs-c8c24fb40404
+author: Rik van Duijn, Leandro Velasco
+date: 2018/07/23
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection:
+        EventID: 11
+        TargetFilename:
+            - 'WsmPty.xsl'
+            - 'WsmTxt.xsl' 
+    condition: selection
+level: high
+
