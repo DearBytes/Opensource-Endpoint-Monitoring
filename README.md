@@ -4,6 +4,9 @@ This repository contains all the config files and scripts used for our Open Sour
 
 ![Architecture](images/arch.png)
 
+## Def Con 27 Blue Team Village video is available
+[![Watch the talk](https://img.youtube.com/vi/qs6sTVffx8Q/maxresdefault.jpg)](https://www.youtube.com/watch?v=qs6sTVffx8Q)
+
 ## Contents
 
 ### Sigma rules
